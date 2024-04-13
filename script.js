@@ -37,18 +37,14 @@ const addQuestion = function(question) {
 
         
         answerInput.addEventListener('change', function() {
-            console.log(answerInput)
             if(answerInput.checked) {
                 if (answer.leadsTo) {
                     let nextQ = questionData.find(elem => elem.id === answer.leadsTo);                    
                     addQuestion(new Question(nextQ.id, nextQ.text, nextQ.domain, nextQ.answers));                    
                 }  
-            }   
-            else {
-                console.log("else")
-                console.log(form.lastChild)
-                form.removeChild(form.lastChild);
-                
+                else {
+                    form.removeChild(form.lastChild);
+                }    
             }
               
        
