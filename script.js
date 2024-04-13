@@ -42,8 +42,11 @@ const addQuestion = function(question) {
                     let nextQ = questionData.find(elem => elem.id === answer.leadsTo);                    
                     addQuestion(new Question(nextQ.id, nextQ.text, nextQ.domain, nextQ.answers));                    
                 }  
-                else {
-                    form.removeChild(form.lastChild);
+                else { // TODO: generalize this for larger trees - whole tree might need removal of more divs
+                    if (form.lastChild.id !== div.id) {
+                        form.removeChild(form.lastChild);
+                        addedQuestions.pop();
+                    }
                 }    
             }
               
