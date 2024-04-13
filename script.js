@@ -5,6 +5,7 @@ import { questionData } from "./data.js";
 
 let question1 = new Question(questionData[0].id, questionData[0].text, questionData[0].domain, questionData[0].answers);
 let addedQuestions = [];
+document.getElementById('domain-name').innerText = question1.domain;
 
 const addQuestion = function(question) {
 
@@ -54,6 +55,5 @@ const addQuestion = function(question) {
         });
     });
 }
-
 
 addQuestion(question1);
