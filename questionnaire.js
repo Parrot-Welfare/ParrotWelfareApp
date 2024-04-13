@@ -19,32 +19,32 @@ export const addQuestion = function(id, addedQuestions=[]) {
     p.innerHTML = q.text;
     form.appendChild(p);
     addedQuestions.push(id);
+
     q.answers.forEach(answer => {
         let input = document.createElement("INPUT");
         input.setAttribute("type", "radio");
         input.setAttribute("id", answer.id);
         input.setAttribute("name", q.id);
         input.setAttribute("value", answer.id);
+
         if(answer.leadsTo) {
             input.addEventListener('click', function() {
                 console.log(answer);
-                addQuestion(answer.leadsTo);
+                addQuestion(answer.leadsTo, addedQuestions);
             });
         }
+
         form.appendChild(input);
         let label = document.createElement('label');
         label.innerHTML = answer.text;
         form.appendChild(label);
-        console.log(form);
     });
 }
 export const addedQuestions = [];
 export const createQuestionnaire = function(questions) {
     console.log("create/question", questions)
-    let form = document.getElementById('questionnaire');
     let root = questions.find(q => q.lvl == 1);
-    
-    let ttt = addQuestion(root.id, addedQuestions);
+    addQuestion(root.id, addedQuestions);
 }
 
 createQuestionnaire(questionData);
