@@ -1,4 +1,4 @@
-questions = [
+export const questionData = [
     {
         id: "q1",
         text: "How many hours does your parrot spend out of the cage?",
