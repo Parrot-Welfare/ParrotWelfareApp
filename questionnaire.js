@@ -1,5 +1,4 @@
 import { questionData } from "./data.js";
-console.log('Hello!');
 /*
 [
 {id:q1, ans:[{id:a1,lt:q2}]},
@@ -9,7 +8,6 @@ console.log('Hello!');
 ]
 */
 export const addQuestion = function(id, addedQuestions=[]) {
-    console.log("addQuestion",addedQuestions)
     if(addedQuestions.find(elem => elem.id === id)) {
         console.log('already exists');
     }
@@ -42,7 +40,6 @@ export const addQuestion = function(id, addedQuestions=[]) {
 }
 export const addedQuestions = [];
 export const createQuestionnaire = function(questions) {
-    console.log("create/question", questions)
     let root = questions.find(q => q.lvl == 1);
     addQuestion(root.id, addedQuestions);
 }

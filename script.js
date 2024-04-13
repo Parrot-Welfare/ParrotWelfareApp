@@ -4,39 +4,25 @@ import { questionData } from "./data.js";
 
 
 let question1 = new Question(questionData[0].id, questionData[0].text, questionData[0].domain, questionData[0].answers);
- 
+let addedQuestions = [];
 
-// let question = document.getElementById("question");
-// question.innerText = question1.text;
+const addQuestion = function(question) {
 
-// for (let i = 0; i < question1.answers.length; i++) {
-//     let answer = new Answer(question1.answers[i].id, question1.answers[i].text, question1.answers[i].points, question1.answers[i].leadsTo)
+    if (addedQuestions.find(q => q.id === question.id)) return;
 
-//     let answerInput = document.createElement('input');
-//     answerInput.type = 'radio';
-//     answerInput.id = answer.id;
-//     answerInput.name = question1.id;
-//     answerInput.value = answer.id;
-
-//     let answerLabel = document.createElement('label');
-//     answerLabel.for = answer.id;
-//     answerLabel.innerText = answer.text;
-
-//     question.appendChild(answerInput);
-//     question.appendChild(answerLabel);
-
-// }
-
-const addQuestion = function(id) {
-    console.log("addQuestion")
-    let question = questionData.find(q => q.id == id);
     let form = document.getElementById('questionnaire');
+    let div = document.createElement('div');
+    div.id = question.id;
+    form.appendChild(div);
+        
     let p = document.createElement('p');
     p.innerHTML = question.text;
-    form.appendChild(p);
-    question.answers.forEach(answer => {
-        let answer = new Answer(answer.id, answer.text, answer.points, answer.leadsTo)
-        let answerInput = document.createElement("INPUT");
+    div.appendChild(p);
+    addedQuestions.push(question);
+
+    question.answers.forEach(answ => {
+        let answer = new Answer(answ.id, answ.text, answ.points, answ.leadsTo)
+        let answerInput = document.createElement('input');
         answerInput.type = 'radio';
         answerInput.id = answer.id;
         answerInput.name = question.id;
@@ -45,24 +31,30 @@ const addQuestion = function(id) {
         let answerLabel = document.createElement('label');
         answerLabel.for = answer.id;
         answerLabel.innerText = answer.text;
-
-        form.appendChild(answerInput);
-        form.appendChild(answerLabel);
+        
+        div.appendChild(answerInput);
+        div.appendChild(answerLabel);        
 
         
-
-        if(answer.leadsTo) {
-            input.addEventListener('click', function() {
-                console.log(answer);
-                addQuestion(answer.leadsTo);
-            });
-        }
-
-        form.appendChild(input);
-        let label = document.createElement('label');
-        label.innerHTML = answer.text;
-        form.appendChild(label);
+        answerInput.addEventListener('change', function() {
+            console.log(answerInput)
+            if(answerInput.checked) {
+                if (answer.leadsTo) {
+                    let nextQ = questionData.find(elem => elem.id === answer.leadsTo);                    
+                    addQuestion(new Question(nextQ.id, nextQ.text, nextQ.domain, nextQ.answers));                    
+                }  
+            }   
+            else {
+                console.log("else")
+                console.log(form.lastChild)
+                form.removeChild(form.lastChild);
+                
+            }
+              
+       
+        });
     });
 }
 
-addQuestion(question1.id)
+
+addQuestion(question1);
