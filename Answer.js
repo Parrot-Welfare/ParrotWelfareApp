@@ -4,14 +4,14 @@ export class Answer {
     id;
     text;
     points;
-    parentQuestion;
-    childQuestion
+    //parentQuestion;
+    leadsTo; //childQuestion
 
-    constructor(id, text, domain, answers) {
+    constructor(id, text, points, leadsTo) {
         this.id = id;
         this.text = text;
-        this.domain = domain;
-        this.answers = answers;
+        this.points = points;
+        this.leadsTo = leadsTo;
     }
 
 }
