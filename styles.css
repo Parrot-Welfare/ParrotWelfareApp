@@ -44,7 +44,18 @@
     font-weight: bold;
     font-size: 1.5rem;
   }
+  
+  button {
+    cursor: pointer;
+    color: rgb(59, 36, 13);
+    padding: 12px 30px;
+    border-color: bisque;
+    background-color: wheat;
+    font-size: 26px;
+    border-radius: 8px;
+  }
+
   #red {
-    width: 70%;
-    height: 70%;
+   width: 70%;
+   height: 70%;
   }
